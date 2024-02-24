@@ -15,7 +15,12 @@ console.log(Quasar);
 
 ## Initialize Vue instance
 
-
-## Quasar Layout Builder
+## Quasar Layout
+- Quasar Layout Builder
 - https://quasar.dev/layout-builder
 
+### Quasar Layout Gallery
+- https://quasar.dev/layout/gallery/
+
+### Quasar Toolbar Component
+- https://quasar.dev/vue-components/toolbar#qtoolbar-api
