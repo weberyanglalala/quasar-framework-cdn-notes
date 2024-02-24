@@ -122,8 +122,8 @@
         $q: null,
         locale: locale,
         localeOptions: [
-          { value: "en", label: "English" },
-          { value: "zh-TW", label: "繁體中文" },
+          { value: "en", label: "English", quasarLang: Quasar.lang.enUS },
+          { value: "zh-TW", label: "繁體中文", quasarLang: Quasar.lang.zhTW },
         ],
       };
     },
@@ -157,16 +157,12 @@
         this.$i18n.locale = newLocale;
       },
       changeQuasarLocale(newLocale) {
-        const localeMap = {
-          "zh-TW": Quasar.lang.zhTW,
-          "en": Quasar.lang.enUS
-        };
-
-        if (!localeMap[newLocale]) {
+        const targetLang = this.localeOptions.find((option) => option.value === newLocale);
+        if (!targetLang) {
           console.warn(`Unsupported locale: ${newLocale}`);
           Quasar.lang.set(Quasar.lang.enUS);
         } else {
-          Quasar.lang.set(localeMap[newLocale]);
+          Quasar.lang.set(targetLang.quasarLang);
         }
       },
     },
