@@ -23,7 +23,6 @@
           round
           icon="menu"
           aria-label="Menu"
-          @click="toggleLeftDrawer"
         ></q-btn>
         <q-toolbar-title>
           Quasar Admin Panel
@@ -62,49 +61,58 @@
         <!--        <q-btn @click="show$qObject" class="q-mx-lg">Show $q Object</q-btn>-->
         <!--        <q-btn @click="setAndShowCookie" class="q-mx-xl">Set And Show Cookie</q-btn>-->
 
-        {{ $q.lang.isoName }}
-        <q-btn @click="notify" class="q-mx-sm">{{ $t("button.showInfo") }}</q-btn>
-        <q-btn @click="setTheme" class="q-mx-md">{{ $t("button.setTheme") }}</q-btn>
-        <q-btn @click="show$qObject" class="q-mx-lg">{{ $t("button.show$qObject") }}</q-btn>
-        <q-btn @click="setAndShowCookie" class="q-mx-xl">{{ $t("button.setAndShowCookie") }}</q-btn>
+        <div class="q-ma-md">{{ $q.lang.isoName }}
+          <q-btn @click="notify" class="q-mx-sm">{{ $t("button.showInfo") }}</q-btn>
+          <q-btn @click="setTheme" class="q-mx-md">{{ $t("button.setTheme") }}</q-btn>
+          <q-btn @click="show$qObject" class="q-mx-lg">{{ $t("button.show$qObject") }}</q-btn>
+          <q-btn @click="setAndShowCookie" class="q-mx-xl">{{ $t("button.setAndShowCookie") }}</q-btn>
+        </div>
 
-        <div class="q-pa-md">
-          <div class="text-purple q-gutter-md">
+        <div class="q-ma-md">
+          <div class="text-purple">
             <q-icon
               v-for="size in ['xs', 'sm', 'md', 'lg', 'xl']"
               :key="size"
               :size="size"
               name="font_download"
             ></q-icon>
-            <q-icon name="font_download"></q-icon>
             <q-icon name="font_download" color="primary" size="32px"></q-icon>
           </div>
         </div>
 
-        <div class="q-pa-md">
+        <div class="q-ma-md">
           <div class="q-mb-md">
             Browser User Agent: "<strong>{{ $q.platform.userAgent }}</strong>"
           </div>
+          <ul>
+            <li v-for="(value, prop) in userQuasarPlatformIs" v-if="isMounted" v-cloak>
+              {{ prop }}: {{ value }}
+            </li>
+          </ul>
+          <q-table
+            title="Quasar Platform Properties"
+            :rows="userQuasarPlatformRows"
+            :columns="userQuasarPlatformColumns"
+            row-key="name"
+          ></q-table>
 
-          <q-markup-table flat bordered>
-            <thead>
-            <tr>
-              <th class="text-left">Property</th>
-              <th class="text-left">Value</th>
-            </tr>
-            </thead>
+          <!--          This component will NOT work as-is within the UMD version of Quasar.-->
+          <!-- https://quasar.dev/vue-components/markup-table#usage -->
+          <!--                    <q-markup-table flat bordered>-->
+          <!--                      <thead>-->
+          <!--                      <tr>-->
+          <!--                        <th class="text-left">Property</th>-->
+          <!--                        <th class="text-left">Value</th>-->
+          <!--                      </tr>-->
+          <!--                      </thead>-->
 
-            <tbody>
-            <tr v-for="(value, prop) in userQuasarPlatformIs" :key="prop" v-cloak>
-              <td>{{ prop }}</td>
-              <td>{{ value }}</td>
-            </tr>
-            </tbody>
-          </q-markup-table>
-
-          <div class="q-mt-md">
-            The device which you are using to view this website <strong>{{ touch }}</strong> touch capability.
-          </div>
+          <!--                      <tbody>-->
+          <!--                      <tr v-for="(value, prop) in userQuasarPlatformIs" :key="prop" v-if="isMounted" v-cloak>-->
+          <!--                        <td>{{ prop }}</td>-->
+          <!--                        <td>{{ value }}</td>-->
+          <!--                      </tr>-->
+          <!--                      </tbody>-->
+          <!--                    </q-markup-table>-->
         </div>
 
       </q-page>
@@ -120,17 +128,22 @@
 
 <!-- Quasar CDN For Dev -->
 <script src="https://cdn.jsdelivr.net/npm/quasar@2/dist/quasar.umd.js"></script>
-<!-- Quasar Language Pack CDN -->
+
+<!-- Quasar CDN For Production -->
 <!--<script src="https://cdn.jsdelivr.net/npm/quasar@2.14.5/dist/quasar.umd.prod.js"></script>-->
 
+<!-- Quasar Language Pack CDN -->
 <script src="https://cdn.jsdelivr.net/npm/quasar@2.14.5/dist/lang/zh-TW.umd.prod.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/quasar@2.14.5/dist/lang/en-us.umd.prod.js"></script>
 
 <!-- Quasar Icon Set CDN -->
 <script src="https://cdn.jsdelivr.net/npm/quasar@v2/dist/icon-set/fontawesome-v6.umd.prod.js"></script>
 
-<!-- Vue i18n CDN -->
+<!-- Vue i18n CDN for Dev -->
 <script src="https://unpkg.com/vue-i18n@9.9.1/dist/vue-i18n.global.js"></script>
+
+<!-- Vue i18n CDN for Production -->
+<!--<script src="https://unpkg.com/vue-i18n@9.9.1/dist/vue-i18n.global.prod.js"></script>-->
 
 <script>
   const locale = Quasar.lang.getLocale();
@@ -167,7 +180,34 @@
     data() {
       return {
         $q: null,
-        userQuasarPlatformIs: null,
+        userQuasarPlatformIs: { isMounted: false },
+        userQuasarPlatformColumns: [
+          {
+            name: "Id",
+            align: "left",
+            label: "Custom Id",
+            field: row => row.id,
+            sortable: true,
+          },
+          {
+            name: "name",
+            required: true,
+            label: "Display Name",
+            align: "left",
+            field: row => row.name,
+            format: value => `${value}`,
+            sortable: true,
+          },
+          {
+            name: "value",
+            align: "left",
+            label: "Display Value",
+            field: row => row.value,
+            sortable: true,
+          },
+        ],
+        userQuasarPlatformRows: [],
+        isMounted: false,
         locale: locale,
         localeOptions: [
           { value: "en", label: "English", quasarLang: Quasar.lang.enUS },
@@ -213,9 +253,18 @@
           Quasar.lang.set(targetLang.quasarLang);
         }
       },
+      setUpQuasarPlatformIs() {
+        let customId = 0;
+        this.userQuasarPlatformIs = this.$q.platform.is;
+        this.isMounted = true;
+        for (const [key, value] of Object.entries(this.userQuasarPlatformIs)) {
+          this.userQuasarPlatformRows.push({ name: key, value: value, id: customId });
+          customId++;
+        }
+      },
     },
     mounted() {
-      this.userQuasarPlatformIs = this.$q.platform.is;
+      this.setUpQuasarPlatformIs();
     },
   });
 

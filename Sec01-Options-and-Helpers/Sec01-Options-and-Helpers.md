@@ -49,9 +49,24 @@
 - https://quasar.dev/vue-components/icon
 
 ### 引入特定語言包，需再使用 icon 前加入前綴
+- https://quasar.dev/vue-components/icon#webfont-usage
 
--
-    - https://quasar.dev/vue-components/icon#webfont-usage
+## quasar platform
+- https://quasar.dev/options/platform-detection
+
+> 如何在 Quasar 框架中使用 $q.platform 物件來檢測用戶的操作系統、瀏覽器等
+
+```javascript
+console.log(app.config.globalProperties.$q.platform);
+```
+
+## quasar table basics
+- https://quasar.dev/vue-components/table
+- name
+- field
+- label
+- align
+- sortable
 
 ## quasar spacing
 
