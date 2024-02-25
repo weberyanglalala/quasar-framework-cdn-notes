@@ -81,16 +81,48 @@
           </div>
         </div>
 
+        <div class="q-pa-md">
+          <div class="q-mb-md">
+            Browser User Agent: "<strong>{{ $q.platform.userAgent }}</strong>"
+          </div>
+
+          <q-markup-table flat bordered>
+            <thead>
+            <tr>
+              <th class="text-left">Property</th>
+              <th class="text-left">Value</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr v-for="(value, prop) in userQuasarPlatformIs" :key="prop" v-cloak>
+              <td>{{ prop }}</td>
+              <td>{{ value }}</td>
+            </tr>
+            </tbody>
+          </q-markup-table>
+
+          <div class="q-mt-md">
+            The device which you are using to view this website <strong>{{ touch }}</strong> touch capability.
+          </div>
+        </div>
+
       </q-page>
     </q-page-container>
   </q-layout>
 </div>
 
-<!-- Vue CDN -->
-<script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+<!-- Vue CDN For Dev -->
+<script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
 
+<!-- Vue CDN For Production -->
+<!--<script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>-->
+
+<!-- Quasar CDN For Dev -->
+<script src="https://cdn.jsdelivr.net/npm/quasar@2/dist/quasar.umd.js"></script>
 <!-- Quasar Language Pack CDN -->
-<script src="https://cdn.jsdelivr.net/npm/quasar@2.14.5/dist/quasar.umd.prod.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/quasar@2.14.5/dist/quasar.umd.prod.js"></script>-->
+
 <script src="https://cdn.jsdelivr.net/npm/quasar@2.14.5/dist/lang/zh-TW.umd.prod.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/quasar@2.14.5/dist/lang/en-us.umd.prod.js"></script>
 
@@ -135,6 +167,7 @@
     data() {
       return {
         $q: null,
+        userQuasarPlatformIs: null,
         locale: locale,
         localeOptions: [
           { value: "en", label: "English", quasarLang: Quasar.lang.enUS },
@@ -181,11 +214,14 @@
         }
       },
     },
+    mounted() {
+      this.userQuasarPlatformIs = this.$q.platform.is;
+    },
   });
 
   app.use(Quasar);
   Quasar.lang.set(Quasar.lang.zhTW);
-  Quasar.iconSet.set(Quasar.iconSet.fontawesomeV6)
+  Quasar.iconSet.set(Quasar.iconSet.fontawesomeV6);
   app.use(i18n);
   app.mount("#q-app");
 
