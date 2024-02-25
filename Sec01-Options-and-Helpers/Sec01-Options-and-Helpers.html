@@ -68,19 +68,34 @@
         <q-btn @click="show$qObject" class="q-mx-lg">{{ $t("button.show$qObject") }}</q-btn>
         <q-btn @click="setAndShowCookie" class="q-mx-xl">{{ $t("button.setAndShowCookie") }}</q-btn>
 
+        <div class="q-pa-md">
+          <div class="text-purple q-gutter-md">
+            <q-icon
+              v-for="size in ['xs', 'sm', 'md', 'lg', 'xl']"
+              :key="size"
+              :size="size"
+              name="font_download"
+            ></q-icon>
+            <q-icon name="font_download"></q-icon>
+            <q-icon name="font_download" color="primary" size="32px"></q-icon>
+          </div>
+        </div>
+
       </q-page>
     </q-page-container>
   </q-layout>
 </div>
 
-<!-- Add the following at the end of your body tag -->
+<!-- Vue CDN -->
 <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
 
-<!-- Quasar 的語言包 -->
+<!-- Quasar Language Pack CDN -->
 <script src="https://cdn.jsdelivr.net/npm/quasar@2.14.5/dist/quasar.umd.prod.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/quasar@2.14.5/dist/lang/zh-TW.umd.prod.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/quasar@2.14.5/dist/lang/en-us.umd.prod.js"></script>
 
+<!-- Quasar Icon Set CDN -->
+<script src="https://cdn.jsdelivr.net/npm/quasar@v2/dist/icon-set/fontawesome-v6.umd.prod.js"></script>
 
 <!-- Vue i18n CDN -->
 <script src="https://unpkg.com/vue-i18n@9.9.1/dist/vue-i18n.global.js"></script>
@@ -170,6 +185,7 @@
 
   app.use(Quasar);
   Quasar.lang.set(Quasar.lang.zhTW);
+  Quasar.iconSet.set(Quasar.iconSet.fontawesomeV6)
   app.use(i18n);
   app.mount("#q-app");
 

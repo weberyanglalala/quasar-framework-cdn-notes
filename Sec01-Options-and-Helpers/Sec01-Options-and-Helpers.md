@@ -32,6 +32,27 @@
 3. 在模板中使用 $t 方法來訪問語言包中的標籤
 4. 在下拉式選單來切換語言
 
+## icon installation by CDN
+
+> 如何在 Quasar 框架中使用 CDN 引入的方式來安裝和使用 Material Design Icons
+
+1. 在 index.html 中引入 Material Design Icons 的 CSS 文件
+2. 在 index.html 中引入 Material Design Icons 的 JS 文件
+3. 在模板中使用 q-icon 來訪問 Material Design Icons 的圖標
+4. 在 q-icon 中使用 icon 屬性來設置圖標名稱
+5. 在 q-icon 中使用 size 屬性來設置圖標大小
+6. 在 q-icon 中使用 color 屬性來設置圖標顏色
+7. 在 q-icon 中使用 class 屬性來設置圖標的其他樣式
+
+- https://quasar.dev/options/installing-icon-libraries
+- https://quasar.dev/start/umd#installation
+- https://quasar.dev/vue-components/icon
+
+### 引入特定語言包，需再使用 icon 前加入前綴
+
+-
+    - https://quasar.dev/vue-components/icon#webfont-usage
+
 ## quasar spacing
 
 - [spacing](https://quasar.dev/style/spacing)
