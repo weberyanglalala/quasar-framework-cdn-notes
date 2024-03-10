@@ -3,5 +3,27 @@
 ** Options and Helpers
 *** the $q object
 *** multiple languages
+** Layout
+*** Drawer
+*** Header
+*** Footer
+** Components
+*** Forms
+**** Checkout Form
+**** Validation
+**** Image Upload
+*** Table
+**** Table View
+**** Card View
+*** Card
+**** Single Product Card
+*** Charts
+*** Calendar
+*** Pagination
+*** Menu
+** Layouts
+*** Grid, Flexbox
+
+
 
 @endmindmap
