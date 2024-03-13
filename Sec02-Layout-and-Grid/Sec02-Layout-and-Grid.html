@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet"
+        type="text/css">
+  <link href="https://use.fontawesome.com/releases/v6.1.1/css/all.css" rel="stylesheet" type="text/css">
+  <link href="https://cdn.jsdelivr.net/npm/quasar@2.14.5/dist/quasar.prod.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<!-- example of injection point where you write your app template -->
+<div id="q-app">
+  <q-layout view="hHh Lpr lFf">
+    <q-header elevated class="bg-indigo text-white" height-hint="98">
+      <q-toolbar>
+        <q-btn
+          flat
+          dense
+          round
+          icon="menu"
+          aria-label="Menu"
+          @click="toggleLeftDrawer"
+        ></q-btn>
+        <q-toolbar-title>
+          Quasar Admin Panel
+        </q-toolbar-title>
+        <q-space></q-space>
+      </q-toolbar>
+    </q-header>
+    <q-page-container>
+      <q-page padding>
+        <q-card class="bg-transparent no-shadow no-border" bordered>
+          <q-card-section class="q-pa-none">
+            <div class="row q-col-gutter-sm ">
+              <div v-for="(item, index) in items" :key="index" class="col-md-3 col-sm-12 col-xs-12">
+                <q-item :style="`background-color: ${item.color1}`" class="q-pa-none">
+                  <q-item-section v-if="icon_position === 'left'" side :style="`background-color: ${item.color2}`"
+                                  class=" q-pa-lg q-mr-none text-white">
+                    <q-icon :name="item.icon" color="white" size="24px"></q-icon>
+                  </q-item-section>
+                  <q-item-section class=" q-pa-md q-ml-none  text-white">
+                    <q-item-label class="text-white text-h6 text-weight-bolder">{{ item.value }}</q-item-label>
+                    <q-item-label>{{ item.title }}</q-item-label>
+                  </q-item-section>
+                  <q-item-section v-if="icon_position === 'right'" side class="q-mr-md text-white">
+                    <q-icon :name="item.icon" color="white" size="44px"></q-icon>
+                  </q-item-section>
+                </q-item>
+              </div>
+            </div>
+          </q-card-section>
+        </q-card>
+      </q-page>
+    </q-page-container>
+    <q-drawer
+      v-model="leftDrawerOpen"
+      bordered
+    >
+      <q-list>
+        <q-item to="/" active-class="q-item-no-link-highlighting">
+          <q-item-section avatar>
+            <q-icon name="dashboard" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Dashboard</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-expansion-item
+          icon="menu_open"
+          label="Menu Levels"
+        >
+          <q-item class="q-ml-xl" active-class="q-item-no-link-highlighting">
+            <q-item-section>
+              <q-item-label>Level 1</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-expansion-item
+            :header-inset-level="0.85"
+            label="Level 2"
+          >
+            <q-item class="q-ml-xl" style="margin-left: 55px  !important;" active-class="q-item-no-link-highlighting">
+              <q-item-section>
+                <q-item-label>Level 2.1</q-item-label>
+              </q-item-section>
+            </q-item>
+            <q-expansion-item
+              :header-inset-level="1"
+              label="Level 2.2"
+            >
+              <q-item style="margin-left: 65px  !important;" active-class="q-item-no-link-highlighting">
+                <q-item-section>
+                  <q-item-label>Level 2.2.1</q-item-label>
+                </q-item-section>
+              </q-item>
+              <q-item style="margin-left: 65px  !important;" active-class="q-item-no-link-highlighting">
+                <q-item-section>
+                  <q-item-label>Level 2.2.2</q-item-label>
+                </q-item-section>
+              </q-item>
+            </q-expansion-item>
+          </q-expansion-item>
+        </q-expansion-item>
+      </q-list>
+    </q-drawer>
+  </q-layout>
+</div>
+
+<!-- Vue CDN For Dev -->
+<script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
+
+<!-- Vue CDN For Production -->
+<!--<script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>-->
+
+<!-- Quasar CDN For Dev -->
+<script src="https://cdn.jsdelivr.net/npm/quasar@2/dist/quasar.umd.js"></script>
+
+<!-- Quasar CDN For Production -->
+<!--<script src="https://cdn.jsdelivr.net/npm/quasar@2.14.5/dist/quasar.umd.prod.js"></script>-->
+
+<!-- Quasar Language Pack CDN -->
+<script src="https://cdn.jsdelivr.net/npm/quasar@2.14.5/dist/lang/zh-TW.umd.prod.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/quasar@2.14.5/dist/lang/en-us.umd.prod.js"></script>
+
+<!-- Quasar Icon Set CDN -->
+<script src="https://cdn.jsdelivr.net/npm/quasar@v2/dist/icon-set/fontawesome-v6.umd.prod.js"></script>
+
+<!-- Vue i18n CDN for Dev -->
+<script src="https://unpkg.com/vue-i18n@9.9.1/dist/vue-i18n.global.js"></script>
+
+<!-- Vue i18n CDN for Production -->
+<!--<script src="https://unpkg.com/vue-i18n@9.9.1/dist/vue-i18n.global.prod.js"></script>-->
+
+<script>
+
+  const app = Vue.createApp({
+    data() {
+      return {
+        $q: null,
+        leftDrawerOpen: false,
+        icon_position: "left",
+        items: [
+          {
+            title: "My Account",
+            icon: "person",
+            value: "200",
+            color1: "#5064b5",
+            color2: "#3e51b5",
+          },
+          {
+            title: "Followers",
+            icon: "fab fa-twitter",
+            value: "500",
+            color1: "#f37169",
+            color2: "#f34636",
+          },
+          {
+            title: "Connections",
+            icon: "fab fa-google",
+            value: "50",
+            color1: "#ea6a7f",
+            color2: "#ea4b64",
+          },
+          {
+            title: "Website Visits",
+            icon: "bar_chart",
+            value: "1020",
+            color1: "#a270b1",
+            color2: "#9f52b1",
+          },
+        ],
+      };
+    },
+    methods: {
+      toggleLeftDrawer() {
+        this.leftDrawerOpen = !this.leftDrawerOpen;
+      },
+    },
+    mounted() {
+    },
+  });
+
+  app.use(Quasar);
+  Quasar.lang.set(Quasar.lang.zhTW);
+  Quasar.iconSet.set(Quasar.iconSet.fontawesomeV6);
+  app.mount("#q-app");
+
+  // console.log(app.config.globalProperties.$q);
+</script>
+</body>
+
+
+</html>
